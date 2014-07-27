@@ -1,0 +1,88 @@
+by arash tavanaei  www.forum.bolur.ir   09130246374
+
+فایل  را در روت باز کنید و قبل از باز کردن نام themes/yourtheme را به قالب خود تغییر دهید
+
+
+
+حال فایل های زیر را باز کنید
+
+system/controllers/charge-buy.php
+system/controllers/charge-pay.php
+
+در ابتدای این فایل متغیر های زیر را با مقادیر خود مقدار دهی کنید
+
+****************************
+$MerchantID = 'XXXXXXXXXXXXXXXXXXXXXXXXXXXX'; ///کد دروازه زرین پال//
+$no_k = 'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'; /////////کلید novinways//////////////
+$no_p = 'XXXXXXXXXXX';////////////رمز novinways//////////
+*************************
+
+
+
+فایل زیر را باز کنید
+
+themes/yourtheme/html/admin_leftmenu.php
+
+کد زیر را به آن بیافزایید
+
+*************************************
+<a href="<?= $C->SITE_URL ?>admin/charge" class="<?= $this->request[1]=='charge' ? 'onsidenav' : '' ?>">فروشگاه شارژ</a>
+**************************************
+
+
+حال کدی که از سایت زیر دارید 
+
+http://www.chargereseller.com
+
+
+را در themes/yourtheme/html/charge-buy-reseller.php بیافزایید
+
+
+
+کد زیر را هم در برگه sql در phpmyadmin اجرا کنید..
+
+
+
+CREATE TABLE IF NOT EXISTS `cart_charge` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `code` varchar(32) NOT NULL,
+  `serial` varchar(64) NOT NULL,
+  `operator` varchar(10) NOT NULL,
+  `amount` int(5) unsigned NOT NULL,
+  `status` enum('bought','free') NOT NULL DEFAULT 'free',
+  `trak` varchar(255) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `cart_charge_bought`
+--
+
+CREATE TABLE IF NOT EXISTS `cart_charge_bought` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `user_id` int(10) unsigned NOT NULL,
+  `code` varchar(32) CHARACTER SET latin1 NOT NULL,
+  `serial` varchar(64) CHARACTER SET latin1 NOT NULL,
+  `operator` enum('mtn','mci','talia','') CHARACTER SET latin1 NOT NULL,
+  `amount` int(6) unsigned NOT NULL,
+  `trak` varchar(16) CHARACTER SET latin1 NOT NULL,
+  `buy_date` varchar(255) CHARACTER SET latin1 NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_persian_ci AUTO_INCREMENT=1 ;
+
+
+
+////////////////////////////////////////////////////////////////
+
+خرید شارژ 
+
+wwww.site.com/charge-buy
+
+مدیریت
+
+www.site.com/admin/charge
+
+
+by arash tavanaei  www.forum.bolur.ir   09130246374
